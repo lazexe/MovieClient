@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">MoviesClient</string>
+
+    <string name="tab_films">Films</string>
+    <string name="tab_favourites">Favourites</string>
+
+    <string name="movie_item_add_favourites">Add to favourites</string>
+    <string name="movie_item_remove_favourites">Remove</string>
+    <string name="movie_item_share">Share</string>
+
+    <string name="share_movie_subject">Movie</string>
+    <string name="share_movie_text">
+        Movie\n
+        Title: \"%1$s\"\n
+        Overview: %2$s
+    </string>
+
+    <string name="error_unknown">Unknown error</string>
+
+    <string name="stub_movie_title" translatable="false">Irishman</string>
+    <string name="stub_movie_overview" translatable="false">
+        In the 1950s, truck driver Frank Sheeran gets involved with Russell Bufalino and his
+        Pennsylvania crime family. As Sheeran climbs the ranks to become a top hit man, he also goes
+        to work for Jimmy Hoffa -- a powerful Teamster tied to organized crime.
+    </string>
 </resources>
