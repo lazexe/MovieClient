@@ -36,6 +36,7 @@ ext {
     espresso = '3.3.0'
     mockito = '3.8.0'
     mockitoKotlin = '2.2.0'
+    coreTesting = '2.1.0'
 
     kotlinDependencies = [
             stdLib              : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
@@ -84,6 +85,7 @@ ext {
 
     testDependencies = [
             jUnit               : "junit:junit:$jUnit",
+            coreTesting         : "androidx.arch.core:core-testing:$coreTesting",
             coroutines          : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines",
             mockito             : "org.mockito:mockito-core:$mockito",
             mockitoKotlin       : "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlin"

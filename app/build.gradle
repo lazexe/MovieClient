@@ -1,7 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
+
+def apiKeyPropertiesFile = rootProject.file("movie_db.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
 
 android {
     compileSdkVersion 30
@@ -15,11 +20,34 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "MOVIE_DB_BASE_URL", apiKeyProperties['movie_db_base_url'])
+        buildConfigField("String", "MOVIE_DB_API_KEY", apiKeyProperties['api_key'])
+        buildConfigField("String", "MOVIE_DB_POSTER_PATH_BASE_URL", apiKeyProperties['movie_db_base_poster_path'])
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file('keystore/movie_client_keystore')
+            storePassword apiKeyProperties['releaseStorePassword']
+            keyAlias apiKeyProperties['releaseKeyAlias']
+            keyPassword apiKeyProperties['releaseKeyPassword']
+        }
     }
 
     buildTypes {
-        release {
+
+        debug {
             minifyEnabled false
+            shrinkResources false
+            debuggable true
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            signingConfig signingConfigs.releaseConfig
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,16 +58,54 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation project(':core')
+
+    implementation kotlinDependencies.stdLib
+
+    implementation androidXDependencies.coreKtx
+    implementation androidXDependencies.appCompat
+    implementation androidXDependencies.constraintLayout
+    implementation androidXDependencies.livedataKtx
+    implementation androidXDependencies.viewmodelKtx
+    implementation androidXDependencies.legacySupport
+
+    implementation androidDependencies.material
+
+    implementation diDependencies.dagger
+    kapt diDependencies.daggerCompiler
+
+    implementation networkDependencies.retrofit
+    implementation networkDependencies.converterGson
+    implementation networkDependencies.coroutinesAdapter
+    implementation networkDependencies.okhttp
+
+    implementation roomDependencies.runtime
+    implementation roomDependencies.ktx
+    kapt roomDependencies.compiler
+
+    implementation uiDependencies.glide
+    kapt uiDependencies.glideCompiler
+
+    implementation developmentDependencies.timber
+
+    testImplementation testDependencies.jUnit
+    testImplementation testDependencies.mockito
+    testImplementation testDependencies.mockitoKotlin
+    testImplementation testDependencies.coroutines
+    testImplementation testDependencies.coreTesting
+
+    androidTestImplementation androidTestDependencies.jUnitExt
+    androidTestImplementation androidTestDependencies.espressoCore
 }
