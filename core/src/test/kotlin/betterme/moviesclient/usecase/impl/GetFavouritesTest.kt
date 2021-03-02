@@ -1,5 +1,6 @@
 package betterme.moviesclient.usecase.impl
 
+import betterme.moviesclient.createSimpleMovieList
 import betterme.moviesclient.data.abs.MovieRepository
 import betterme.moviesclient.domain.Movie
 import com.nhaarman.mockitokotlin2.verify
@@ -34,10 +35,7 @@ class GetFavouritesTest {
     @Test
     fun `test getFavouritesFlow() is calling getFavouritesFlow in repository`() = runBlocking {
         // given
-        val expected = listOf(
-            Movie(123, "Irishman", "Irishman overview text", "2020-01-01","https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg"),
-            Movie(234, "1917", "1917 overview text", "2020-01-01", "https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg"),
-        )
+        val expected = createSimpleMovieList()
 
         whenever(movieRepository.getFavouritesFlow()).then {
             flow { emit(expected) }

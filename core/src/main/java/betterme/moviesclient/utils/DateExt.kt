@@ -14,3 +14,5 @@ fun Date.add(field: Int, amount: Int): Date {
         return time
     }
 }
+
+fun Date.removeTwoWeeks() = this.add(Calendar.DATE, -14)

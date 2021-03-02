@@ -15,7 +15,8 @@ data class Movie(
     val title: String,
     val overview: String,
     val releaseDate: String,
-    val posterUrl: String?
+    val posterUrl: String?,
+    var favourite: Boolean = false
 ) {
     @Suppress("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat(DATE_FORMAT)

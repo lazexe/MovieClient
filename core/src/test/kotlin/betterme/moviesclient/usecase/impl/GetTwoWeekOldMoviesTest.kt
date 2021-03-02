@@ -1,5 +1,6 @@
 package betterme.moviesclient.usecase.impl
 
+import betterme.moviesclient.createSimpleMovie
 import betterme.moviesclient.data.abs.MovieRepository
 import betterme.moviesclient.domain.DATE_FORMAT
 import betterme.moviesclient.domain.Movie
@@ -42,8 +43,8 @@ class GetTwoWeekOldMoviesTest {
         val releaseDate = dateFormat.format(now)
 
         val expected = listOf(
-            Movie(123, "Irishman", "Irishman overview text", releaseDate,"https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg"),
-            Movie(234, "1917", "1917 overview text", releaseDate, "https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg"),
+            createSimpleMovie(releaseDate = releaseDate),
+            createSimpleMovie(releaseDate = releaseDate)
         )
 
         whenever(movieRepository.getCachedMoviesFlow()).then {
@@ -65,16 +66,16 @@ class GetTwoWeekOldMoviesTest {
         val now = Date()
 
         val normalDate = dateFormat.format(now.add(Calendar.DATE, -2))
-        val normalMovie = Movie(123, "Irishman", "Irishman overview text", normalDate,"https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg")
+        val normalMovie = createSimpleMovie(releaseDate = normalDate)
 
         val normalDate2 = dateFormat.format(now.add(Calendar.DATE, -13))
-        val normalMovie2 = Movie(235, "1918", "1918 overview text", normalDate2, "https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg")
+        val normalMovie2 = createSimpleMovie(releaseDate = normalDate2)
 
         val expiredDate = dateFormat.format(now.add(Calendar.DATE, -14))
-        val expiredMovie = Movie(234, "1917", "1917 overview text", expiredDate, "https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg")
+        val expiredMovie = createSimpleMovie(releaseDate = expiredDate)
 
         val expiredDate2 = dateFormat.format(now.add(Calendar.DATE, -15))
-        val expiredMovie2 = Movie(236, "1912", "1912 overview text", expiredDate2, "https://image.tmdb.org/t/p/w500/xZ2KER2gOHbuHP2GJoODuXDSZCb.jpg")
+        val expiredMovie2 = createSimpleMovie(releaseDate = expiredDate2)
 
         val inputMovies = listOf(normalMovie, normalMovie2, expiredMovie, expiredMovie2)
         val expected = listOf(normalMovie, normalMovie2)

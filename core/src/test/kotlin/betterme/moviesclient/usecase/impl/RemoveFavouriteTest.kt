@@ -1,5 +1,6 @@
 package betterme.moviesclient.usecase.impl
 
+import betterme.moviesclient.createSimpleMovie
 import betterme.moviesclient.data.abs.MovieRepository
 import betterme.moviesclient.domain.Movie
 import com.nhaarman.mockitokotlin2.verify
@@ -30,7 +31,7 @@ class RemoveFavouriteTest {
     @Test
     fun `test removeFavourite() is calling removeFromFavourite in repository`() = runBlocking {
         // given
-        val movie = Movie(1, "Title", "Overview", "2020-01-01", "http://google.com")
+        val movie = createSimpleMovie()
 
         // when
         testUnit.removeFavourite(movie)
