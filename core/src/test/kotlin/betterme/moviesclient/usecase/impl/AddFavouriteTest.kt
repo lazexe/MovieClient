@@ -2,7 +2,6 @@ package betterme.moviesclient.usecase.impl
 
 import betterme.moviesclient.createSimpleMovie
 import betterme.moviesclient.data.abs.MovieRepository
-import betterme.moviesclient.domain.Movie
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

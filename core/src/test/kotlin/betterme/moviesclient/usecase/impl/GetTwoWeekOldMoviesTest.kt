@@ -3,7 +3,6 @@ package betterme.moviesclient.usecase.impl
 import betterme.moviesclient.createSimpleMovie
 import betterme.moviesclient.data.abs.MovieRepository
 import betterme.moviesclient.domain.DATE_FORMAT
-import betterme.moviesclient.domain.Movie
 import betterme.moviesclient.utils.add
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
