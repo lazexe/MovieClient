@@ -57,7 +57,6 @@ class MovieRecyclerAdapter :
         val shareButton = binding.shareButton
 
         fun bind(movie: Movie) {
-            Timber.d("Bind: ${movie.title}")
             binding.movieTitleTextView.text = movie.title
             binding.movieOverviewTextView.text = movie.overview
 
